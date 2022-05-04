@@ -12,7 +12,6 @@
 
 `docker pull mcr.microsoft.com/dotnet/core/samples:aspnetapp`
 
-
 `docker run -d -p 8000:80 mcr.microsoft.com/dotnet/core/samples:aspnetapp`
 
 `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { password here }`
@@ -21,13 +20,13 @@
 
 ```
 docker run -d ^
+-v %USERPROFILE%\.aspnet\https:c:\https\ ^
 -p 8000:80 ^
 -p 8001:443 ^
 -e ASPNETCORE_URLS="https://+;http://+" ^
 -e ASPNETCORE_HTTPS_PORT=8001 ^
 -e ASPNETCORE_Kestrel__Certificates__Default__Password="password" ^
 -e ASPNETCORE_Kestrel__Certificates__Default__Path=\https\aspnetapp.pfx ^
--v %USERPROFILE%\.aspnet\https:c:\https\ ^
 --user ContainerAdministrator ^
 mcr.microsoft.com/dotnet/core/samples:aspnetapp
 ```
@@ -48,5 +47,5 @@ mcr.microsoft.com/dotnet/core/samples:aspnetapp
 
 > volume
 
-`docker run ... --volume "<host:container>"`
+`docker run ... --volume "<host>:<container>"`
 

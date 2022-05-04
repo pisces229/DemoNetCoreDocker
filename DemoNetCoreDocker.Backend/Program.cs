@@ -1,9 +1,13 @@
 using Dapper;
+using DemoNetCoreDocker.Backend;
+using MySql.Data.MySqlClient;
 using Serilog;
 using Serilog.Events;
 using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// new EnvironmentInfo();
 
 Console.WriteLine($"ContentRootPath:[{builder.Environment.ContentRootPath}]");
 
@@ -16,7 +20,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File(
         restrictedToMinimumLevel: LogEventLevel.Information,
         outputTemplate: "[{Timestamp:o}] [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-        path: $"{builder.Environment.ContentRootPath}/log.txt")
+        path: "c:/logs/log.txt")
     .CreateLogger();
 
 foreach (string key in Environment.GetEnvironmentVariables().Keys)
@@ -35,19 +39,28 @@ var app = builder.Build();
 
 app.MapGet("/", async (context) =>
 {
-    var result = "";
+    var result = "Nothing";
     try
     {
-        //using (var connection = new SqlConnection("Server=(LocalDB)\\MSSQLLocalDB;Database=DemoNetCore6;"))
-        using var connection = new SqlConnection("Server=10.10.95.31;Database=temp;Persist Security Info=false;TrustServerCertificate=true;Encrypt=true;User ID=ards2;Password=!!5/454vu04rup!;MultipleActiveResultSets=true;");
-        connection.Open();
-        result = await connection.ExecuteScalarAsync<string>("SELECT @@VERSION");
+        File.WriteAllText("c:/test.txt", "Hello World");
+        //using (var connection = new SqlConnection("ConnectionString"))
+        //{
+        //    connection.Open();
+        //    result = await connection.ExecuteScalarAsync<string>("SELECT @@VERSION");
+        //    connection.Close();
+        //}  
+        //using (var connection = new MySqlConnection("ConnectionString"))
+        //{
+        //    connection.Open();
+        //    result = await connection.ExecuteScalarAsync<string>("SELECT VERSION()");
+        //    connection.Close();
+        //}
     }
     catch (Exception e)
     {
         result = e.ToString();
     }
-    Log.Logger.Information($"Response:{result}");
+    Log.Logger.Information($"Result:{result}");
     await context.Response.WriteAsync(result);
 });
 
