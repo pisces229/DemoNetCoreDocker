@@ -43,7 +43,7 @@ docker run -d ^
 -v "d:\GitHub\pisces\DemoNetCoreDocker\DemoPublishDocker\https\:c:\https" ^
 -p 5001:443 ^
 -e "ASPNETCORE_ENVIRONMENT=Production" ^
--e "ASPNETCORE_URLS=https://+:443" ^
+-e "ASPNETCORE_URLS=https://+;http://+" ^
 -e ASPNETCORE_HTTPS_PORT=5001 ^
 -e ASPNETCORE_Kestrel__Certificates__Default__Password="1234" ^
 -e ASPNETCORE_Kestrel__Certificates__Default__Path="c:\https\demonetcoredocker.pfx" ^
@@ -52,3 +52,12 @@ docker run -d ^
 demonetcoredocker
 ```
 
+```
+docker run -d ^
+-v "d:\GitHub\pisces\DemoNetCoreDocker\DemoPublishDocker\logs\:c:\logs" ^
+-v "d:\GitHub\pisces\DemoNetCoreDocker\DemoPublishDocker\https\:c:\https" ^
+-p 5001:443 ^
+-P --name DemoNetCoreDocker ^
+--user ContainerAdministrator ^
+demonetcoredocker
+```

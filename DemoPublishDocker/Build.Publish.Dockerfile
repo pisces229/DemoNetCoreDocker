@@ -2,7 +2,7 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR "/app"
-EXPOSE 80
+#EXPOSE 80
 EXPOSE 443
 
 #Stage 2: Build and publish the code
@@ -23,4 +23,12 @@ RUN dotnet publish "DemoNetCoreDocker.Backend.csproj" -c Release -o "/app/publis
 FROM base AS final
 WORKDIR "/app"
 COPY --from=publish "/app/publish" .
+VOLUME ["c:/logs","c:/https"]
+ENV ASPNETCORE_ENVIRONMENT="Production"
+#ENV ASPNETCORE_URLS="https://+;http://+"
+ENV ASPNETCORE_URLS="https://+"
+ENV ASPNETCORE_HTTPS_PORT="5001"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password="1234"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path="c:/https/demonetcoredocker.pfx"
 ENTRYPOINT ["dotnet", "DemoNetCoreDocker.Backend.dll"]
+#CMD "ping -t localhost"

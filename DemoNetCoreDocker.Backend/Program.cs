@@ -42,13 +42,20 @@ app.MapGet("/", async (context) =>
     var result = "Nothing";
     try
     {
-        File.WriteAllText("c:/test.txt", "Hello World");
+        // Sql Server
+        // ConnectionString
+        // Server=<Server>;Database=<Database>;;User ID=<User ID>;Password=<Password>;
         //using (var connection = new SqlConnection("ConnectionString"))
         //{
         //    connection.Open();
         //    result = await connection.ExecuteScalarAsync<string>("SELECT @@VERSION");
         //    connection.Close();
-        //}  
+        //}
+        // MySql Server
+        // Docker
+        // docker run -d -p 3306:3306 --name demo-mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes mysql
+        // ConnectionString
+        // Server=<Server>;Port=<Port>;Database=<Database>;Uid=<Uid>;Pwd=<Pwd>;
         //using (var connection = new MySqlConnection("ConnectionString"))
         //{
         //    connection.Open();
