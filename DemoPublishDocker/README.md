@@ -13,6 +13,18 @@
 
 `dotnet dev-certs https -ep d:\GitHub\pisces\DemoNetCoreDocker\DemoPublishDocker\https\demonetcoredocker.pfx -p 1234`
 
+### save
+
+`docker save -o <name>.tar <image>`
+
+`docker save -o demonetcoredocker.tar demonetcoredocker`
+
+### load
+
+`docker load -i <name>.tar`
+
+`docker load -i demonetcoredocker.tar`
+
 ### docker run container
 
 ```

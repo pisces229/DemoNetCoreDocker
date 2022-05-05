@@ -49,3 +49,12 @@ mcr.microsoft.com/dotnet/core/samples:aspnetapp
 
 `docker run ... --volume "<host>:<container>"`
 
+> save
+
+`docker save -o <name>.tar <image>`
+
+> load
+
+`docker load -i <name>.tar`
+
+
