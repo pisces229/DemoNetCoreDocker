@@ -20,7 +20,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File(
         restrictedToMinimumLevel: LogEventLevel.Information,
         outputTemplate: "[{Timestamp:o}] [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-        path: "c:/logs/log.txt")
+        path: "c:/logs/backend.txt")
     .CreateLogger();
 
 foreach (string key in Environment.GetEnvironmentVariables().Keys)
